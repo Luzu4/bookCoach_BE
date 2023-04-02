@@ -4,22 +4,29 @@ import com.bookcoach.book_coach_be.model.Game;
 import com.bookcoach.book_coach_be.service.GameService;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("game/all")
+@RequestMapping("/game")
 @RequiredArgsConstructor
 public class GameController {
 
     private final GameService gameService;
 
-    @GetMapping
+    @GetMapping("/all")
     List<Game> all(){
         return gameService.getAllGames();
     }
+
+    @GetMapping("/{id}")
+    Game getById(@PathVariable("id") Game game){
+        return game;
+    }
+
+//    @GetMapping("/user/{id}")
+//    List<Game> getGamesByUserId(@PathVariable("id") long id){
+//        return gameService.getGamesByUserId(id);
+//    }
 }

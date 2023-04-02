@@ -1,5 +1,7 @@
 package com.bookcoach.book_coach_be.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,4 +25,6 @@ public class Lesson {
 
     @ManyToOne
     private User user;
+
+
 }

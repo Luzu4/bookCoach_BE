@@ -1,0 +1,19 @@
+insert into book_coach.games (name) VALUES ('Counter-Strike 2'), ('Diablo 4'), ('Valorant'),('FIFA 2024');
+
+insert into book_coach.user_details (city, country, language)
+values
+    ('Sierpc','Poland','Polish'),
+    ('Gdansk','Poland','Eng'),
+    ('Warsaw','France','French'),
+    ('Katowice','Netherlands','Goralski');
+
+insert into book_coach.users (email, nick_name, password, user_type, details_id)
+VALUES
+    ('luzcoach@gmail.com','luzCoach','123',1,1),
+    ('beastcoach@gmail.com','beastCoach','123',1,2),
+    ('player@gmail.com','player','123',0,3),
+    ('coach@gmail.com','coach','123',1,4);
+
+    insert into book_coach.user_details_game (user_details_id, game_id)
+    VALUES
+        (1,1),(1,2),(1,3),(2,4),(2,3),(2,2),(3,3);
