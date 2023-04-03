@@ -22,7 +22,7 @@ public class GameService {
         return gameRepository.getGameById(id);
     }
 
-//    public List<Game> getGamesByUserId(long id){
-//        return gameRepository.getGamesByUserId();
-//    }
+    public List<Game> getGamesByUserId(long id){
+        return gameRepository.getGamesByUserId(id);
+    }
 }

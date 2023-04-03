@@ -25,8 +25,9 @@ public class GameController {
         return game;
     }
 
-//    @GetMapping("/user/{id}")
-//    List<Game> getGamesByUserId(@PathVariable("id") long id){
-//        return gameService.getGamesByUserId(id);
-//    }
+    @GetMapping("/user/{id}")
+    List<Game> getGamesByUserId(@PathVariable("id") long id){
+        System.out.println(id);
+        return gameService.getGamesByUserId(id);
+    }
 }
