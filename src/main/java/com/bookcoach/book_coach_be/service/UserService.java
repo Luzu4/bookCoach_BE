@@ -16,4 +16,8 @@ public class UserService {
     public List<User> getUserByType(String type){
         return userRepository.getUsersByType(type);
     }
+
+    public User getById(long id){
+        return userRepository.getById(id);
+    }
 }

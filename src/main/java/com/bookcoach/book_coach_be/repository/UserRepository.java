@@ -11,4 +11,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u from User u where u.userType = :type")
     List<User> getUsersByType(@Param("type") String type);
+
+    User getById(Long id);
 }

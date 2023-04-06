@@ -1,5 +1,6 @@
 package com.bookcoach.book_coach_be.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,6 +20,7 @@ public class User {
 
     @OneToOne
     @JoinColumn(name="details_id", unique = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private UserDetails userDetails;
 
 }
