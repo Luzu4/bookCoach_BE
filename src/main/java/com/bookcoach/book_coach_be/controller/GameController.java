@@ -4,6 +4,8 @@ import com.bookcoach.book_coach_be.model.Game;
 import com.bookcoach.book_coach_be.service.GameService;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +25,8 @@ public class GameController {
 
     @GetMapping("/{id}")
     Game getById(@PathVariable("id") Game game){
+//        System.out.println("user.getAttributes() = " + user.getAttributes());
+//        System.out.println("user.getAttribute(\"email\") = " + user.getAttribute("email"));
         return game;
     }
 

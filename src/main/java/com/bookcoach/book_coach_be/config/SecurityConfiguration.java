@@ -5,6 +5,7 @@ import com.bookcoach.book_coach_be.CookieCsrfFilter;
 import com.bookcoach.book_coach_be.SpaWebFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -16,6 +17,7 @@ import org.springframework.security.web.savedrequest.SimpleSavedRequest;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
 @Configuration
 public class SecurityConfiguration {
@@ -25,8 +27,9 @@ public class SecurityConfiguration {
         http
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/*", "/index.html", "/static/**",
-                                "/*.ico", "/*.json", "/*.png", "/api/user", "/game/all", "/user/type/*" , "/game/user/*", "lessons/game/user/*", "lesson/free/game/*/user/*").permitAll()
+                                "/*.ico", "/*.json", "/*.png", "/api/user", "/game/all", "/user/type/*" , "/game/user/*", "lessons/game/user/*", "lesson/free/game/*/user/*", "/user/save", "/lesson/add/player", "/lesson/save","lesson/save").permitAll()
                         .anyRequest().authenticated()
+
                 )
                 .csrf((csrf) -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())

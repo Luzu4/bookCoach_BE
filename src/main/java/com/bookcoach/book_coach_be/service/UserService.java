@@ -20,4 +20,10 @@ public class UserService {
     public User getById(long id){
         return userRepository.getById(id);
     }
+
+    public void saveUser(User user){
+        if(userRepository.getUserByEmail(user.getEmail()) == null){
+            userRepository.save(user);
+        }
+    }
 }

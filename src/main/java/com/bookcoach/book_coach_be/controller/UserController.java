@@ -47,15 +47,24 @@ public class UserController {
     public ResponseEntity<?> logout(HttpServletRequest request,
                                     @AuthenticationPrincipal(expression = "idToken") OidcIdToken idToken) {
         // send logout URL to client so they can initiate logout
+        System.out.println(this.registration);
         System.out.println(this.registration.getClientId());
         StringBuilder logoutUrl = new StringBuilder();
         String issuerUri = this.registration.getProviderDetails().getIssuerUri();
-        logoutUrl.append(issuerUri.endsWith("/") ? issuerUri + "v2/logout" : issuerUri + "/v2/logout");
+        logoutUrl.append(issuerUri.endsWith("/") ? issuerUri + "v2/logout" : issuerUri + "/v2/logout?federated");
         logoutUrl.append("?client_id=").append(this.registration.getClientId());
 
         Map<String, String> logoutDetails = new HashMap<>();
         logoutDetails.put("logoutUrl", logoutUrl.toString());
         request.getSession(false).invalidate();
         return ResponseEntity.ok().body(logoutDetails);
+    }
+
+    @PostMapping("/user/save")
+    public void saveUser(@AuthenticationPrincipal OAuth2User user){
+        User userToSave = new User();
+        userToSave.setEmail(user.getAttribute("email"));
+        userService.saveUser(userToSave);
+
     }
 }

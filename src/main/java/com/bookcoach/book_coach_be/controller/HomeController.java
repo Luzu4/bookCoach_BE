@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @CrossOrigin(origins = "http://localhost:3000")
 public class HomeController {
 
-    @RequestMapping("/")
+    @RequestMapping("/hello")
     public String hello(){
         return "/hello";
     }
