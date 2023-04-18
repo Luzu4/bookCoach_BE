@@ -9,8 +9,8 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name="user_details")
-public class UserDetails {
+@Table(name="user_details_all")
+public class UserDetailsAll {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

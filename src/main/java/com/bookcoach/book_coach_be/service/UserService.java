@@ -1,5 +1,6 @@
 package com.bookcoach.book_coach_be.service;
 
+import com.bookcoach.book_coach_be.model.Role;
 import com.bookcoach.book_coach_be.model.User;
 import com.bookcoach.book_coach_be.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +14,8 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public List<User> getUserByType(String type){
-        return userRepository.getUsersByType(type);
+    public List<User> getUserByType(Role type){
+        return userRepository.getUsersByRole(type);
     }
 
     public User getById(long id){

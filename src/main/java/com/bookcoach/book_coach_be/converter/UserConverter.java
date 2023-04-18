@@ -15,7 +15,7 @@ public class UserConverter implements Converter<String, User> {
 
     @Override
     public User convert(String source) {
-        return userService.getById(Long.parseLong(source));
+        return userService.getById(Integer.parseInt(source));
     }
 
 

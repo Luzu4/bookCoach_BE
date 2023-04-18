@@ -13,9 +13,9 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 
     @Query(nativeQuery = true, value = "SELECT g.id,g.name\n" +
             "FROM games g\n" +
-            "inner join user_details_game udg on g.id=udg.game_id\n" +
-            "inner join user_details ud on udg.user_details_id = ud.id\n" +
-            "inner join users u on ud.id = u.details_id\n" +
+            "inner join user_details_all_game udg on g.id=udg.game_id\n" +
+            "inner join user_details_all ud on udg.user_details_all_id = ud.id\n" +
+            "inner join _user u on ud.id = u.user_details_all_id\n" +
             "where u.id = :id")
     List<Game> getGamesByUserId(@Param("id") long id);
 }
