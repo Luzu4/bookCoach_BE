@@ -17,4 +17,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     User getById(Long id);
 
     Optional<User> findByEmail(String email);
+
+    @Query("SELECT u FROM User u " +
+            "JOIN u.userDetails uda " +
+            "JOIN uda.game udag " +
+            "WHERE udag.id = :gameId")
+    List<User> getAllCoachesByGame(@Param("gameId") Long gameId);
+
 }

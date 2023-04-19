@@ -2,9 +2,13 @@ package com.bookcoach.book_coach_be.controller;
 
 
 import com.bookcoach.book_coach_be.model.Lesson;
+import com.bookcoach.book_coach_be.model.User;
 import com.bookcoach.book_coach_be.service.LessonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
@@ -43,6 +47,26 @@ public class LessonController {
     @GetMapping("/free/game/{gameId}/user/{userId}")
     List<Lesson> getLessonsByGameIdAndUserIdWhereEmailIsNull(@PathVariable("gameId") long gameId, @PathVariable("userId") long userId ){
         return lessonService.getLessonsByGameIdAndUserIdWhereEmailIsNull(gameId,userId);
+    }
+
+    @GetMapping("/all/player")
+    List<Lesson> getLessonByPlayerId(@AuthenticationPrincipal User user){
+        return lessonService.getLessonsByPlayerId(user.getId());
+    }
+
+    @GetMapping("/all/coach")
+    List<Lesson> getLessonByCoachId(@AuthenticationPrincipal User user){
+        return lessonService.getLessonsByCoachId(user.getId());
+    }
+
+    @DeleteMapping("/remove/{lessonId}")
+    void removeLessonById(@AuthenticationPrincipal User user, @PathVariable("lessonId") long lessonId){
+        lessonService.removeLessonById(lessonId, user.getId());
+    }
+
+    @PatchMapping("/remove/player/{lessonId}")
+    void removePlayerFromLessonById(@AuthenticationPrincipal User user, @PathVariable("lessonId") long lessonId){
+        lessonService.removePlayerFromLessonById(lessonId, user.getEmail());
     }
 
 }

@@ -21,4 +21,10 @@ public class UserService {
     public User getById(long id){
         return userRepository.getById(id);
     }
+
+    public List<User> getAllCoachesByGame(long gameId){
+        return userRepository.getAllCoachesByGame(gameId);
+    }
+
+
 }
