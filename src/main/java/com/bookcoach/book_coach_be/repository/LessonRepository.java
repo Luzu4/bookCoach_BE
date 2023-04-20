@@ -19,7 +19,7 @@ public interface LessonRepository extends JpaRepository<Lesson, Long> {
             "inner join _user u on l.user_id= u.id\n" +
             "inner join games g on l.game_id = g.id\n" +
             "where (u.id=:userId and g.id=:gameId and l.player_email is null );")
-    List<Lesson> findLessonsByGameIdAndUserIdWhereEmailIsNull(@Param("userId") long userId, @Param("gameId") long gameId);
+    List<Lesson> findLessonsByGameIdAndUserIdWhereEmailIsNull( @Param("gameId") long gameId, @Param("userId") long userId);
 
     @Modifying
     @Query("update Lesson l set l.playerEmail=:playerEmail where l.id=:lessonId")
