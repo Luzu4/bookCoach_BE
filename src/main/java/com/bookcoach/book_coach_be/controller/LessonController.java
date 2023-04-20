@@ -10,6 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -69,4 +70,18 @@ public class LessonController {
         lessonService.removePlayerFromLessonById(lessonId, user.getEmail());
     }
 
+    @GetMapping("/all/coach/date/{date}")
+    List<Lesson> getLessonsByUserIdAndDate(@AuthenticationPrincipal User user, @PathVariable("date") LocalDate date){
+        System.out.println("user.getId() = " + user.getId());
+        System.out.println("date = " + date);
+        return lessonService.getLessonsByUserIdAndDate(user.getId(), date);
+    }
+
+    @PutMapping("/add")
+    void addLessons(@AuthenticationPrincipal User user, @RequestBody Map<String, String> json){
+        System.out.println(json.get("gameId"));
+        System.out.println(json.get("date"));
+        System.out.println(json.get("hours"));
+        lessonService.addNewLessons(json.get("date"), user.getId(),json.get("gameId"), json.get("hours"));
+    }
 }

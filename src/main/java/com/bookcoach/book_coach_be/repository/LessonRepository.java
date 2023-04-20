@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public interface LessonRepository extends JpaRepository<Lesson, Long> {
@@ -35,4 +37,13 @@ public interface LessonRepository extends JpaRepository<Lesson, Long> {
     @Modifying
     @Query("update Lesson l set l.playerEmail=null, l.playerId=null where l.id=:lessonId")
     void removePlayerFromLesson(@Param("lessonId") long lessonId);
+
+
+    List<Lesson> getLessonsByUserIdAndDate(@Param("userId") long userId, @Param("date") LocalDate date);
+
+
+    @Modifying
+    @Query( nativeQuery = true, value = "insert into lessons (date,user_id,game_id,time) values (:date, :userId,:gameId,:time)")
+    void addNewLesson(@Param("date") LocalDate date, @Param("userId") long userId, @Param("gameId") long gameId, @Param("time") LocalTime time );
+
 }

@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -76,6 +78,25 @@ public class LessonService {
 
     }
 
+    public List<Lesson> getLessonsByUserIdAndDate(long userId, LocalDate date){
+        return lessonRepository.getLessonsByUserIdAndDate(userId,date);
+    }
+
+    @Transactional
+    public void addNewLessons(String date, long userid, String gameId, String hours){
+        String[] hoursArray = hours.split(",");
+        for (String hour : hoursArray) {
+            System.out.println("userid = " + userid);
+            System.out.println("gameId = " + gameId);
+            System.out.println("hour = " + hour);
+            System.out.println("date = " + date);
+
+            lessonRepository.addNewLesson(LocalDate.parse(date),userid,Long.parseLong(gameId), LocalTime.parse(hour));
+        }
+
+
+
+    }
 
 
 }

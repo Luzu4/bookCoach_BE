@@ -1,9 +1,11 @@
 package com.bookcoach.book_coach_be.controller;
 
 import com.bookcoach.book_coach_be.model.Game;
+import com.bookcoach.book_coach_be.model.User;
 import com.bookcoach.book_coach_be.service.GameService;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,4 +32,13 @@ public class GameController {
         System.out.println(id);
         return gameService.getGamesByUserId(id);
     }
+
+    @GetMapping("/user")
+    List<Game> getGamesByUserEmail(@AuthenticationPrincipal User user){
+        System.out.println(user.getId());
+        return gameService.getGamesByUserId(user.getId());
+    }
+
+
+
 }

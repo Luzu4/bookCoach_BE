@@ -18,4 +18,6 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "inner join _user u on ud.id = u.user_details_all_id\n" +
             "where u.id = :id")
     List<Game> getGamesByUserId(@Param("id") long id);
+
+
 }

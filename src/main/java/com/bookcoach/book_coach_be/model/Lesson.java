@@ -8,6 +8,8 @@ import lombok.Data;
 import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Data
@@ -18,8 +20,8 @@ public class Lesson implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String date;
-    private String time;
+    private LocalDate date;
+    private LocalTime time;
     private String playerNote;
 
     @Nullable
