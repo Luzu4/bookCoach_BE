@@ -29,13 +29,11 @@ public class GameController {
 
     @GetMapping("/user/{id}")
     List<Game> getGamesByUserId(@PathVariable("id") long id){
-        System.out.println(id);
         return gameService.getGamesByUserId(id);
     }
 
     @GetMapping("/user")
     List<Game> getGamesByUserEmail(@AuthenticationPrincipal User user){
-        System.out.println(user.getId());
         return gameService.getGamesByUserId(user.getId());
     }
 
