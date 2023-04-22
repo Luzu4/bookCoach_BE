@@ -25,6 +25,10 @@ public interface LessonRepository extends JpaRepository<Lesson, Long> {
     @Query("update Lesson l set l.playerEmail=:playerEmail where l.id=:lessonId")
     void addPlayerToLesson(@Param("playerEmail") String playerEmail, @Param("lessonId") long lessonId);
 
+    @Modifying
+    @Query("update Lesson l set l.playerEmail=:playerEmail, l.playerId=:playerId where l.id=:lessonId")
+    void addPlayerToLessonEmailAndId(@Param("playerEmail") String playerEmail,@Param("playerId") long playerId , @Param("lessonId") long lessonId);
+
     List<Lesson> getLessonsByPlayerEmail(@Param("playerEmail") String playerEmail);
 
     List<Lesson> getLessonsByUserId(@Param("userId") long userId);

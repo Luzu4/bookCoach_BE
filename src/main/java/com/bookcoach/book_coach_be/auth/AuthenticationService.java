@@ -7,6 +7,8 @@ import com.bookcoach.book_coach_be.auth.RegisterRequest;
 import com.bookcoach.book_coach_be.config.JwtService;
 import com.bookcoach.book_coach_be.model.Role;
 import com.bookcoach.book_coach_be.model.User;
+import com.bookcoach.book_coach_be.model.UserDetailsAll;
+import com.bookcoach.book_coach_be.repository.UserDetailsAllRepository;
 import com.bookcoach.book_coach_be.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final UserDetailsAllRepository userDetailsAllRepository;
 
     public AuthenticationResponse register(RegisterRequest request){
         var user = User.builder()
@@ -31,11 +34,17 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.PLAYER)
                 .build();
-
+        var userDetailsAll = UserDetailsAll.builder()
+                .language("")
+                .city("")
+                .country("")
+                .build();
         if(UserRepository.findByEmail(user.getEmail()).isPresent()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User Already Exists!");
         }
         UserRepository.save(user);
+        userDetailsAllRepository.save(userDetailsAll);
+
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
