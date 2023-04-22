@@ -42,8 +42,10 @@ public class AuthenticationService {
         if(UserRepository.findByEmail(user.getEmail()).isPresent()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User Already Exists!");
         }
-        UserRepository.save(user);
+
         userDetailsAllRepository.save(userDetailsAll);
+        user.setUserDetails(userDetailsAll);
+        UserRepository.save(user);
 
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()

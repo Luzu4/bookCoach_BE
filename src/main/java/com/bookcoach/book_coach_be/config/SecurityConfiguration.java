@@ -30,7 +30,7 @@ public class SecurityConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("*"); // Umożliwienie żądań CORS z dowolnego źródła
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST","PATCH", "PUT", "DELETE")); // Umożliwienie obsługi wybranych metod HTTP
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "PUT", "DELETE")); // Umożliwienie obsługi wybranych metod HTTP
         configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization")); // Umożliwienie wybranych nagłówków
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -44,7 +44,8 @@ public class SecurityConfiguration {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers("/v1/auth/**", "/error", "/v1/auth/register", "/game/**", "/user/type/*", "/game/user/*", "lesson/free/game/*/user/*", "lesson/add/player", "/user/coaches/game/*")
+                .requestMatchers("/v1/auth/**", "/error", "/v1/auth/register", "/game/**", "/user/type/*",
+                        "/game/user/*", "lesson/free/game/*/user/*", "lesson/add/player", "/user/coaches/game/*")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
