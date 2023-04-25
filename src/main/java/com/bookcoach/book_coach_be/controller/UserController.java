@@ -54,9 +54,3 @@ public class UserController {
     }
 
 }
-
-//11 kg- kielbasa i kabanosy ~
-//Ogórki 6 kg
-//Smalec - 5kg
-//Wędzonki szynki - 10 kg ~
-//Noga - 5kg

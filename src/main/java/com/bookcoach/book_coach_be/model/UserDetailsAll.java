@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -29,8 +32,6 @@ public class UserDetailsAll {
 
     @ManyToMany
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//    (fetch = FetchType.EAGER)
-//    @JoinTable(name="users_details_games", joinColumns = @JoinColumn(name=("users_details")), inverseJoinColumns = @JoinColumn(name="games_id"))
     private List<Game> game;
 
 }

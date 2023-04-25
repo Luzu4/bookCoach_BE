@@ -2,6 +2,7 @@ package com.bookcoach.book_coach_be.repository;
 
 import com.bookcoach.book_coach_be.model.Game;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -19,5 +20,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "where u.id = :id")
     List<Game> getGamesByUserId(@Param("id") long id);
 
-
+    @Modifying
+    @Query("UPDATE Game g set g.imageUrl=:imageUrl,g.description=:description, g.name=:name, g.shortGameName=:shortGameName where g.id=:gameId")
+    void editGameById(@Param("imageUrl") String imageUrl, @Param("description")String description, @Param("name")String name, @Param("shortGameName") String shortGameName, @Param("gameId") Long gameId);
 }

@@ -4,7 +4,7 @@ import com.bookcoach.book_coach_be.model.Game;
 import com.bookcoach.book_coach_be.model.User;
 import com.bookcoach.book_coach_be.service.GameService;
 import lombok.RequiredArgsConstructor;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +37,20 @@ public class GameController {
         return gameService.getGamesByUserId(user.getId());
     }
 
+    @DeleteMapping("/delete/{id}")
+    ResponseEntity<?> removeGameById(@PathVariable("id")Long gameId){
+        return gameService.removeGameById(gameId);
+    }
+
+    @PatchMapping("/edit")
+    ResponseEntity<?> editGameById(@RequestBody Game game){
+        return gameService.editGameById(game);
+    }
+
+    @PutMapping("/add")
+    Game addNewGame(@RequestBody Game game){
+        return gameService.addNewGame(game);
+    }
 
 
 }

@@ -1,6 +1,7 @@
 package com.bookcoach.book_coach_be.config;
 
 import com.bookcoach.book_coach_be.config.JwtAuthenticationFilter;
+import com.bookcoach.book_coach_be.model.Role;
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -47,6 +48,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/v1/auth/**", "/error", "/v1/auth/register", "/game/**", "/user/type/*",
                         "/game/user/*", "lesson/free/game/*/user/*", "lesson/add/player", "/user/coaches/game/*","/happy")
                 .permitAll()
+                .requestMatchers("/game/delete/*","/game/edit", "/game/add").hasAnyAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
