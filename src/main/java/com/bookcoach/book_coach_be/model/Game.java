@@ -13,4 +13,7 @@ public class Game {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private long id;
         private String name;
+        private String description;
+        private String imageUrl;
+        private String shortGameName;
         }

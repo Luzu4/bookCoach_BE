@@ -24,6 +24,8 @@ public class UserDetailsAll {
     private String language;
     private String country;
     private String city;
+    private String description;
+    private String imageUrl;
 
     @ManyToMany
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

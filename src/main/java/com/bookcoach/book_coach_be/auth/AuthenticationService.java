@@ -33,6 +33,7 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.PLAYER)
+                .nickName(request.getNickName())
                 .build();
         var userDetailsAll = UserDetailsAll.builder()
                 .language("")

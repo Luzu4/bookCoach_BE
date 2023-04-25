@@ -45,7 +45,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/v1/auth/**", "/error", "/v1/auth/register", "/game/**", "/user/type/*",
-                        "/game/user/*", "lesson/free/game/*/user/*", "lesson/add/player", "/user/coaches/game/*")
+                        "/game/user/*", "lesson/free/game/*/user/*", "lesson/add/player", "/user/coaches/game/*","/happy")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
