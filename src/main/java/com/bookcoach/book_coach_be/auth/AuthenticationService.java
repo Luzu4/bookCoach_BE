@@ -39,6 +39,8 @@ public class AuthenticationService {
                 .language("")
                 .city("")
                 .country("")
+                .description("")
+                .imageUrl("")
                 .build();
         if(UserRepository.findByEmail(user.getEmail()).isPresent()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User Already Exists!");
