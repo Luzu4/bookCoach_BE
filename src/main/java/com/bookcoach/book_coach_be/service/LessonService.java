@@ -2,6 +2,7 @@ package com.bookcoach.book_coach_be.service;
 
 
 import com.bookcoach.book_coach_be.model.Lesson;
+import com.bookcoach.book_coach_be.model.Role;
 import com.bookcoach.book_coach_be.model.User;
 import com.bookcoach.book_coach_be.repository.LessonRepository;
 import com.bookcoach.book_coach_be.repository.UserRepository;
@@ -67,15 +68,16 @@ public class LessonService {
     }
 
     @Transactional
-    public void removePlayerFromLessonById(long lessonId, String userEmail){
+    public void removePlayerFromLessonById(long lessonId, User user){
         Lesson lessonToEdit = lessonRepository.getLessonById(lessonId);
-        System.out.println("lessonToEdit = " + lessonToEdit);
+        System.out.println("We are here?");
         if(lessonToEdit.getPlayerEmail() != null){
-            System.out.println("lessonToEdit.getPlayerId() = " + lessonToEdit.getPlayerId());
-            if(lessonToEdit.getPlayerEmail().equals(userEmail)){
-                System.out.println("lessonToEdit.getPlayerId() == userId = " + (lessonToEdit.getPlayerEmail().equals(userEmail)));
+            System.out.println("and here");
+            if(lessonToEdit.getPlayerEmail().equals(user.getEmail()) || user.getRole().equals(Role.ADMIN) || user.getRole().equals(Role.COACH)){
+                System.out.println("WHAAT?");
                 lessonRepository.removePlayerFromLesson(lessonId);
             }else{
+                System.out.println("HEJ");
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You are not student in this lesson");
             }
         }else{

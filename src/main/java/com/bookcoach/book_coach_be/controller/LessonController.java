@@ -66,7 +66,8 @@ public class LessonController {
 
     @PatchMapping("/remove/player/{lessonId}")
     void removePlayerFromLessonById(@AuthenticationPrincipal User user, @PathVariable("lessonId") long lessonId){
-        lessonService.removePlayerFromLessonById(lessonId, user.getEmail());
+        System.out.println(lessonId);
+        lessonService.removePlayerFromLessonById(lessonId, user);
     }
 
     @GetMapping("/all/coach/date/{date}")

@@ -37,9 +37,6 @@ public class UserService {
     }
 
     public Optional<User> getUserByEmail(String userEmail, User user){
-        System.out.println(userEmail);
-        System.out.println(user.getId());
-        System.out.println(user.getUserDetails().getId());
         return userRepository.findByEmail(userEmail);
     }
 
