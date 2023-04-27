@@ -33,8 +33,6 @@ public interface LessonRepository extends JpaRepository<Lesson, Long> {
 
     List<Lesson> getLessonsByUserId(@Param("userId") long userId);
 
-    void removeLessonById(@Param("lessonId") long lessonId);
-
     Lesson getLessonById(@Param("lessonId") long lessonId);
 
 

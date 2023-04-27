@@ -61,7 +61,7 @@ public class LessonController {
 
     @DeleteMapping("/remove/{lessonId}")
     void removeLessonById(@AuthenticationPrincipal User user, @PathVariable("lessonId") long lessonId){
-        lessonService.removeLessonById(lessonId, user.getId());
+        lessonService.removeLessonById(lessonId, user);
     }
 
     @PatchMapping("/remove/player/{lessonId}")

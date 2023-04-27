@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
@@ -13,6 +15,8 @@ import java.time.LocalTime;
 
 @Entity
 @Data
+@SQLDelete(sql = "UPDATE book_coach.lessons SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
 @Table(name="lessons")
 public class Lesson implements Serializable {
 
@@ -35,6 +39,8 @@ public class Lesson implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
+
+    private boolean deleted = Boolean.FALSE;
 
 
 }
