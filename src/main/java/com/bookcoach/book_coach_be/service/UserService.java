@@ -1,11 +1,11 @@
 package com.bookcoach.book_coach_be.service;
 
+import com.bookcoach.book_coach_be.converter.UserDTOConverter;
+import com.bookcoach.book_coach_be.dto.UserDTO;
 import com.bookcoach.book_coach_be.dto.EditUserDataDTO;
 import com.bookcoach.book_coach_be.dto.EditUserRoleGamesDTO;
-import com.bookcoach.book_coach_be.model.Game;
 import com.bookcoach.book_coach_be.model.Role;
 import com.bookcoach.book_coach_be.model.User;
-import com.bookcoach.book_coach_be.repository.GameRepository;
 import com.bookcoach.book_coach_be.repository.UserDetailsAllRepository;
 import com.bookcoach.book_coach_be.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,25 +26,50 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserDetailsAllRepository userDetailsAllRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserDTOConverter userDTOConverter;
 
-    public List<User> getUserByType(Role type){
-        return userRepository.getUsersByRole(type);
+    public List<UserDTO> getUserByType(Role type){
+        List<UserDTO> userDTOList = new ArrayList<>();
+        userRepository.getUsersByRole(type).forEach(user->{
+            UserDTO userDTO = new UserDTO();
+            userDTO.setNickName(user.getNickName());
+            userDTO.setRole(user.getRole());
+            userDTO.setEmail(user.getEmail());
+            userDTO.setId(user.getId());
+            userDTO.setUserDetailsAll(user.getUserDetails());
+            userDTOList.add(userDTO);
+        });
+        return userDTOList;
     }
-
-    public User getById(long id){
-        return userRepository.getById(id);
-    }
-
-    public Optional<User> getUserByEmail(String userEmail, User user){
-        return userRepository.findByEmail(userEmail);
+    public Optional<UserDTO> getUserByEmail(String userEmail){
+        Optional<User> optionalUser = userRepository.findByEmail(userEmail);
+        return optionalUser.map(user -> {
+            UserDTO userDTO = new UserDTO();
+            userDTO.setNickName(user.getNickName());
+            userDTO.setRole(user.getRole());
+            userDTO.setEmail(user.getEmail());
+            userDTO.setId(user.getId());
+            userDTO.setUserDetailsAll(user.getUserDetails());
+            return userDTO;
+        });
     }
 
     public List<User> getAllCoachesByGame(long gameId){
         return userRepository.getAllCoachesByGame(gameId);
     }
 
-    public List<User> getAllUsers(){
-        return userRepository.findAll();
+    public List<UserDTO> getAllUsers(){
+        List<UserDTO> userDTOList = new ArrayList<>();
+        userRepository.findAll().forEach(user->{
+            UserDTO userDTO = new UserDTO();
+            userDTO.setNickName(user.getNickName());
+            userDTO.setRole(user.getRole());
+            userDTO.setEmail(user.getEmail());
+            userDTO.setId(user.getId());
+            userDTO.setUserDetailsAll(user.getUserDetails());
+            userDTOList.add(userDTO);
+        });
+        return userDTOList;
     }
     @Transactional
     public ResponseEntity<String> updateUserGamesAndRole(EditUserRoleGamesDTO editUserRoleGamesDTO){

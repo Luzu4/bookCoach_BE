@@ -64,6 +64,7 @@ public class LessonService {
     public void removeLessonById(long lessonId, User user) {
         if (lessonRepository.getLessonById(lessonId).getUser().getId().equals(user.getId()) || user.getRole().equals(Role.ADMIN)) {
             lessonRepository.deleteById(lessonId);
+
         }
     }
 
