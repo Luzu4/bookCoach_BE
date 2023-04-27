@@ -80,7 +80,7 @@ public class UserService {
                 editUserDataDTO.getDescription(),
                 editUserDataDTO.getImageUrl(),
                 user.getUserDetails().getId());
-        return ResponseEntity.status(HttpStatus.CREATED).body("CREATED");
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("UPDATED");
 
 
     }

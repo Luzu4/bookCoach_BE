@@ -70,14 +70,10 @@ public class LessonService {
     @Transactional
     public void removePlayerFromLessonById(long lessonId, User user){
         Lesson lessonToEdit = lessonRepository.getLessonById(lessonId);
-        System.out.println("We are here?");
         if(lessonToEdit.getPlayerEmail() != null){
-            System.out.println("and here");
             if(lessonToEdit.getPlayerEmail().equals(user.getEmail()) || user.getRole().equals(Role.ADMIN) || user.getRole().equals(Role.COACH)){
-                System.out.println("WHAAT?");
                 lessonRepository.removePlayerFromLesson(lessonId);
             }else{
-                System.out.println("HEJ");
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You are not student in this lesson");
             }
         }else{

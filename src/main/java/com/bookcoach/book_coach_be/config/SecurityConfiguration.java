@@ -48,7 +48,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/v1/auth/**", "/error", "/v1/auth/register", "/game/**", "/user/type/*",
                         "/game/user/*", "lesson/free/game/*/user/*", "lesson/add/player", "/user/coaches/game/*","/happy")
                 .permitAll()
-                .requestMatchers("/game/delete/*","/game/edit", "/game/add").hasAnyAuthority("ADMIN")
+                .requestMatchers("/game/delete/*","/game/edit", "/game/add", "/lesson/all").hasAnyAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
