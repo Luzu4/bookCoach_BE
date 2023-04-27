@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +91,8 @@ public class UserService {
     public ResponseEntity<?> updateUserData(EditUserDataDTO editUserDataDTO, User user){
         Long userId = Long.valueOf(user.getId());
         if(!user.getEmail().equals(editUserDataDTO.getEmail()) && userRepository.findByEmail(editUserDataDTO.getEmail()).isPresent()){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This email is already in use");
+            System.out.println(editUserDataDTO.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This Email is Already in use");
         }
         if(!editUserDataDTO.getPassword().isEmpty()){
             userRepository.updateUserPassword(passwordEncoder.encode(editUserDataDTO.getPassword()),userId);

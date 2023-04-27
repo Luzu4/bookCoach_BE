@@ -3,6 +3,7 @@ package com.bookcoach.book_coach_be.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NonNull;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 

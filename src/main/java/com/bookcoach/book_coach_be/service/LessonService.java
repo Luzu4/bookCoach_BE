@@ -78,7 +78,7 @@ public class LessonService {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You are not student in this lesson");
             }
         }else{
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You are not student in this lesson");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no student assigned to this lesson");
         }
 
     }
