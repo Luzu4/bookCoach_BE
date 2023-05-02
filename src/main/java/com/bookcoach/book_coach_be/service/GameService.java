@@ -49,19 +49,22 @@ public class GameService {
         return gameRepository.findGameByName(name);
     }
     public Game addNewGame(Game game){
-        if(game.getName().length()>1){
-            if(getGameByName(game.getName()).isEmpty()){
-                try{
-                    return gameRepository.save(game);
-                }catch(Exception e){
-                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Smth went wrong");
+        if (game.getName() != null) {
+            if(game.getName().length()>1){
+                if(getGameByName(game.getName()).isEmpty()){
+                    try{
+                        return gameRepository.save(game);
+                    }catch(Exception e){
+                        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Smth went wrong");
+                    }
+                }else{
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Game already exists!");
                 }
-            }else{
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Game already exists!");
             }
-        }else{
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Game need to have name");
         }
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Game need to have name");
+
+
 
 
 

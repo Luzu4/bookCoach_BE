@@ -2,17 +2,23 @@ package com.bookcoach.book_coach_be.service;
 import com.bookcoach.book_coach_be.model.HappyStudent;
 import com.bookcoach.book_coach_be.repository.HappyStudentRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 
 import java.util.List;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-
+@ExtendWith(MockitoExtension.class)
 class HappyStudentServiceTest {
+
+
 
     @Mock
     private HappyStudentRepository happyStudentRepository;
@@ -20,23 +26,9 @@ class HappyStudentServiceTest {
     @InjectMocks
     private HappyStudentService happyStudentService;
 
-    private HappyStudent buildTestingHappyStudent(){
-        HappyStudent happyStudent = new HappyStudent();
-        happyStudent.setId(1);
-        happyStudent.setImageUrl("IMAGE_URL");
-        happyStudent.setDescription("DESCRIPTION");
-        happyStudent.setName("NAME");
-        return happyStudent;
-    }
-
 
     @Test
-    void should_throw_nullPointerException() {
-        assertThrows(NullPointerException.class, () -> happyStudentService.getAllHappyStudents());
-    }
-
-    @Test
-    void findAll_shoud_return_happyStudents_list(){
+    void findAll_should_return_happyStudents_list(){
         // Given
         HappyStudent happyStudent = this.buildTestingHappyStudent();
 
@@ -46,8 +38,17 @@ class HappyStudentServiceTest {
 
         // Then
         assertEquals(1, happyStudents.size());
-        verify(this.happyStudentRepository.findAll());
+        verify(this.happyStudentRepository).findAll();
 
+    }
+
+    private HappyStudent buildTestingHappyStudent(){
+        HappyStudent happyStudent = new HappyStudent();
+        happyStudent.setId(1L);
+        happyStudent.setDescription("desc");
+        happyStudent.setName("Maciek");
+        happyStudent.setImageUrl("imageURL");
+        return happyStudent;
     }
 
 }

@@ -6,6 +6,7 @@ import com.bookcoach.book_coach_be.model.User;
 import com.bookcoach.book_coach_be.service.LessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -34,9 +35,9 @@ public class LessonController {
     }
 
     @PostMapping("/add/player")
-    void addPlayerToLesson(@RequestBody Map<String, String> json){
+    ResponseEntity<?> addPlayerToLesson(@RequestBody Map<String, String> json){
         long lessonId= Long.parseLong(json.get("lessonId"));
-        lessonService.addPlayerToLesson(json.get("playerEmail"), lessonId);
+        return lessonService.addPlayerToLesson(json.get("playerEmail"), lessonId);
     }
 
     @GetMapping("/game/{id}/user/{userId}")

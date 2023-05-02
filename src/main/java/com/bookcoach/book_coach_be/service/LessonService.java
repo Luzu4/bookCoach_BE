@@ -33,14 +33,15 @@ public class LessonService {
     }
 
     @Transactional
-    public void addPlayerToLesson(String playerEmail, long lessonId) {
+    public ResponseEntity<?> addPlayerToLesson(String playerEmail, long lessonId) {
         if(userRepository.findByEmail(playerEmail).isPresent()){
             User user = userRepository.findByEmail(playerEmail).get();
             lessonRepository.addPlayerToLessonEmailAndId(playerEmail,user.getId(),lessonId);
-
         }else{
             lessonRepository.addPlayerToLesson(playerEmail, lessonId);
+
         }
+        return ResponseEntity.status(HttpStatus.OK).body("Success");
 
     }
 
