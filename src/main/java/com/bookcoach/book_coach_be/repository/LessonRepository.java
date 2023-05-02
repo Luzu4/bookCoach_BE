@@ -48,4 +48,8 @@ public interface LessonRepository extends JpaRepository<Lesson, Long> {
     @Query( nativeQuery = true, value = "insert into lessons (date,user_id,game_id,time, deleted) values (:date, :userId,:gameId,:time, false)")
     void addNewLesson(@Param("date") LocalDate date, @Param("userId") long userId, @Param("gameId") long gameId, @Param("time") LocalTime time );
 
+    @Modifying
+    @Query("UPDATE Lesson l set l.playerEmail=:newPlayerEmail where l.playerEmail=:oldPlayerEmail")
+    void editPlayerEmail(@Param("newPlayerEmail") String newPlayerEmail, @Param("oldPlayerEmail") String oldPlayerEmail);
+
 }

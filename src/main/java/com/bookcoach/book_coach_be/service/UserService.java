@@ -6,6 +6,7 @@ import com.bookcoach.book_coach_be.dto.EditUserDataDTO;
 import com.bookcoach.book_coach_be.dto.EditUserRoleGamesDTO;
 import com.bookcoach.book_coach_be.model.Role;
 import com.bookcoach.book_coach_be.model.User;
+import com.bookcoach.book_coach_be.repository.LessonRepository;
 import com.bookcoach.book_coach_be.repository.UserDetailsAllRepository;
 import com.bookcoach.book_coach_be.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ public class UserService {
     private final UserDetailsAllRepository userDetailsAllRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserDTOConverter userDTOConverter;
+    private final LessonRepository lessonRepository;
 
     public List<UserDTO> getUserByType(Role type){
         List<UserDTO> userDTOList = new ArrayList<>();
@@ -98,6 +100,7 @@ public class UserService {
             userRepository.updateUserPassword(passwordEncoder.encode(editUserDataDTO.getPassword()),userId);
         }
         userRepository.updateUserEmail(editUserDataDTO.getEmail(),userId);
+        lessonRepository.editPlayerEmail(editUserDataDTO.getEmail(), user.getEmail());
         userRepository.updateUserNickName(editUserDataDTO.getNickName(),userId);
         userDetailsAllRepository.updateUserDetailsAllData(
                 editUserDataDTO.getCity(),
