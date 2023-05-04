@@ -35,6 +35,9 @@ public class User implements UserDetails {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private UserDetailsAll userDetails;
 
+    private boolean isVerified;
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
