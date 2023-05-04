@@ -211,3 +211,4 @@ _site/
 .eclipse
 /src/main/resources/dev.properties
 .gitkeep
+.env
