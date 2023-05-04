@@ -20,6 +20,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     Optional<User> findByEmail(String email);
 
+    User findByEmailIgnoreCase(String emailId);
+
+    Boolean existsByEmail(String email);
+
     @Query("SELECT u FROM User u " +
             "JOIN u.userDetails uda " +
             "JOIN uda.game udag " +

@@ -19,18 +19,18 @@ values
 
 
 
-insert into book_coach._user (email, nick_name, password, role, user_details_all_id)
+insert into book_coach._user (email, is_verified, nick_name, password, role, user_details_all_id)
 VALUES
-    ('admin@gmail.com','Admin','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','ADMIN',1),
-    ('coach@gmail.com','Coach','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','COACH',2),
-    ('player@gmail.com','Player','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','PLAYER',3),
-    ('adam@gmail.com','AdamCoach','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','COACH',4),
-    ('maciek@gmail.com','MaciekCoach','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','COACH',5),
-    ('johny@gmail.com','JohnyPlayer','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','PLAYER',6),
-    ('ananas@gmail.com','AnanasCoach','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','COACH',7),
-    ('pilka@gmail.com','PlikaCoach','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','COACH',8),
-    ('janusz@gmail.com','JanusCoach','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','COACH',9),
-    ('stanislaw@gmail.com','StanislawCoach','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','COACH',10);
+    ('admin@gmail.com',false,'Admin','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','ADMIN',1),
+    ('coach@gmail.com',false,'Coach','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','COACH',2),
+    ('player@gmail.com',false,'Player','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','PLAYER',3),
+    ('adam@gmail.com',false,'AdamCoach','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','COACH',4),
+    ('maciek@gmail.com',false,'MaciekCoach','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','COACH',5),
+    ('johny@gmail.com',false,'JohnyPlayer','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','PLAYER',6),
+    ('ananas@gmail.com',false,'AnanasCoach','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','COACH',7),
+    ('pilka@gmail.com',false,'PlikaCoach','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','COACH',8),
+    ('janusz@gmail.com',false,'JanusCoach','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','COACH',9),
+    ('stanislaw@gmail.com',false,'StanislawCoach','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','COACH',10);
 
 
 insert into book_coach.user_details_all_game (user_details_all_id, game_id)
