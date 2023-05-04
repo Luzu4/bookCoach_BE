@@ -40,7 +40,7 @@ public class AuthenticationService {
     @Autowired
     EmailService emailService;
 
-    public AuthenticationResponse register(RegisterRequest request){
+    public ResponseEntity<?> register(RegisterRequest request){
         var user = User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
@@ -75,10 +75,7 @@ public class AuthenticationService {
 
         System.out.println("Confirmation Token: " + confirmationToken.getConfirmationToken());
 
-        var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
+        return ResponseEntity.ok("Confirm you email. Link sent on your email address");
     }
 
     public ResponseEntity<?> confirmEmail(String confirmationToken) {
@@ -104,6 +101,9 @@ public class AuthenticationService {
         );
         var user = UserRepository.findByEmail(request.getEmail())
                 .orElseThrow();
+        if(!user.isVerified()){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Email not verified!");
+        }
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
