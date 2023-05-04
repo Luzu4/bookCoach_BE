@@ -34,10 +34,10 @@ public class LessonService {
 
     @Transactional
     public ResponseEntity<?> addPlayerToLesson(String playerEmail, long lessonId) {
-        if(userRepository.findByEmail(playerEmail).isPresent()){
+        if (userRepository.findByEmail(playerEmail).isPresent()) {
             User user = userRepository.findByEmail(playerEmail).get();
-            lessonRepository.addPlayerToLessonEmailAndId(playerEmail,user.getId(),lessonId);
-        }else{
+            lessonRepository.addPlayerToLessonEmailAndId(playerEmail, user.getId(), lessonId);
+        } else {
             lessonRepository.addPlayerToLesson(playerEmail, lessonId);
 
         }
@@ -70,29 +70,29 @@ public class LessonService {
     }
 
     @Transactional
-    public void removePlayerFromLessonById(long lessonId, User user){
+    public void removePlayerFromLessonById(long lessonId, User user) {
         Lesson lessonToEdit = lessonRepository.getLessonById(lessonId);
-        if(lessonToEdit.getPlayerEmail() != null){
-            if(lessonToEdit.getPlayerEmail().equals(user.getEmail()) || user.getRole().equals(Role.ADMIN) || user.getRole().equals(Role.COACH)){
+        if (lessonToEdit.getPlayerEmail() != null) {
+            if (lessonToEdit.getPlayerEmail().equals(user.getEmail()) || user.getRole().equals(Role.ADMIN) || user.getRole().equals(Role.COACH)) {
                 lessonRepository.removePlayerFromLesson(lessonId);
-            }else{
+            } else {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You are not student in this lesson");
             }
-        }else{
+        } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no student assigned to this lesson");
         }
 
     }
 
-    public List<Lesson> getLessonsByUserIdAndDate(long userId, LocalDate date){
-        return lessonRepository.getLessonsByUserIdAndDate(userId,date);
+    public List<Lesson> getLessonsByUserIdAndDate(long userId, LocalDate date) {
+        return lessonRepository.getLessonsByUserIdAndDate(userId, date);
     }
 
     @Transactional
-    public void addNewLessons(String date, long userid, String gameId, String hours){
+    public void addNewLessons(String date, long userid, String gameId, String hours) {
         String[] hoursArray = hours.split(",");
         for (String hour : hoursArray) {
-            lessonRepository.addNewLesson(LocalDate.parse(date),userid,Long.parseLong(gameId), LocalTime.parse(hour));
+            lessonRepository.addNewLesson(LocalDate.parse(date), userid, Long.parseLong(gameId), LocalTime.parse(hour));
         }
     }
 }

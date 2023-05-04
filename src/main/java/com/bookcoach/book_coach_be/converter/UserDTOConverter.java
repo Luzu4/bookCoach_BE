@@ -13,7 +13,6 @@ public class UserDTOConverter implements Converter<User, UserDTO> {
 
     @Override
     public UserDTO convert(User user) {
-
         UserDTO userDTO = new UserDTO();
         userDTO.setNickName(user.getNickName());
         userDTO.setRole(user.getRole());

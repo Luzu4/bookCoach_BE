@@ -13,7 +13,7 @@ public class HappyStudentService {
 
     private final HappyStudentRepository happyStudentRepository;
 
-    public List<HappyStudent> getAllHappyStudents(){
+    public List<HappyStudent> getAllHappyStudents() {
         return happyStudentRepository.findAll();
     }
 }

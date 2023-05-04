@@ -1,8 +1,5 @@
 package com.bookcoach.book_coach_be.config;
 
-import com.bookcoach.book_coach_be.config.JwtAuthenticationFilter;
-import com.bookcoach.book_coach_be.model.Role;
-import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,9 +43,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/v1/auth/**", "/error", "/v1/auth/register", "/game/**", "/user/type/*",
-                        "/game/user/*", "lesson/free/game/*/user/*", "lesson/add/player", "/user/coaches/game/*","/happy")
+                        "/game/user/*", "lesson/free/game/*/user/*", "lesson/add/player", "/user/coaches/game/*", "/happy")
                 .permitAll()
-                .requestMatchers("/game/delete/*","/game/edit", "/game/add", "/lesson/all").hasAnyAuthority("ADMIN")
+                .requestMatchers("/game/delete/*", "/game/edit", "/game/add", "/lesson/all").hasAnyAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -58,10 +55,6 @@ public class SecurityConfiguration {
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors();
-
-
         return http.build();
     }
-
-
 }

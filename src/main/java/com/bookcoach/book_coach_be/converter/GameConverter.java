@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-
 @Component
 public class GameConverter implements Converter<String, Game> {
 
@@ -14,7 +13,7 @@ public class GameConverter implements Converter<String, Game> {
     private GameService gameService;
 
     @Override
-    public Game convert(String s){
+    public Game convert(String s) {
         return gameService.getById(Long.parseLong(s));
     }
 }

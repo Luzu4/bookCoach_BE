@@ -22,34 +22,34 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/type/{type}")
-    List<UserDTO> getUsersByType(@PathVariable("type") String type){
+    List<UserDTO> getUsersByType(@PathVariable("type") String type) {
 
         return userService.getUserByType(Role.valueOf(type.toUpperCase()));
     }
 
     @GetMapping("/coaches/game/{gameId}")
-    List<User> getCoachesByGameId(@PathVariable("gameId") Long gameId){
+    List<User> getCoachesByGameId(@PathVariable("gameId") Long gameId) {
         return userService.getAllCoachesByGame(gameId);
     }
 
     @GetMapping("/all")
-    List<UserDTO> getAllUsers(){
+    List<UserDTO> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @PatchMapping("/admin/edit")
-    ResponseEntity<?> updateUserRoleAndGames(@RequestBody EditUserRoleGamesDTO editUserRoleGamesDTO){
+    ResponseEntity<?> updateUserRoleAndGames(@RequestBody EditUserRoleGamesDTO editUserRoleGamesDTO) {
         return ResponseEntity.ok(userService.updateUserGamesAndRole(editUserRoleGamesDTO));
     }
 
     @GetMapping("/{userEmail}")
-    Optional<UserDTO> getUserById(@PathVariable("userEmail") String userEmail, @AuthenticationPrincipal User user){
+    Optional<UserDTO> getUserById(@PathVariable("userEmail") String userEmail, @AuthenticationPrincipal User user) {
         return userService.getUserByEmail(userEmail);
     }
 
     @PatchMapping("/edit")
-    ResponseEntity<?> updateUserData(@RequestBody EditUserDataDTO editUserDataDTO, @AuthenticationPrincipal User user){
-        return userService.updateUserData(editUserDataDTO,user);
+    ResponseEntity<?> updateUserData(@RequestBody EditUserDataDTO editUserDataDTO, @AuthenticationPrincipal User user) {
+        return userService.updateUserData(editUserDataDTO, user);
     }
 
 }

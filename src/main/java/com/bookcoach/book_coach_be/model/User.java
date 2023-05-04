@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="_user")
+@Table(name = "_user")
 public class User implements UserDetails {
 
     @Id
@@ -31,12 +31,11 @@ public class User implements UserDetails {
     private String nickName;
 
     @OneToOne
-    @JoinColumn(name="user_details_all_id", unique = true)
+    @JoinColumn(name = "user_details_all_id", unique = true)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private UserDetailsAll userDetails;
 
     private boolean isVerified;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -67,6 +66,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-
 }

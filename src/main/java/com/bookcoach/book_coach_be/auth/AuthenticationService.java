@@ -1,9 +1,5 @@
 package com.bookcoach.book_coach_be.auth;
 
-import com.bookcoach.book_coach_be.auth.AuthenticationRequest;
-import com.bookcoach.book_coach_be.auth.AuthenticationResponse;
-import com.bookcoach.book_coach_be.auth.RegisterRequest;
-
 import com.bookcoach.book_coach_be.config.JwtService;
 import com.bookcoach.book_coach_be.model.ConfirmationToken;
 import com.bookcoach.book_coach_be.model.Role;
@@ -11,7 +7,6 @@ import com.bookcoach.book_coach_be.model.User;
 import com.bookcoach.book_coach_be.model.UserDetailsAll;
 import com.bookcoach.book_coach_be.repository.ConfirmationTokenRepository;
 import com.bookcoach.book_coach_be.repository.UserDetailsAllRepository;
-import com.bookcoach.book_coach_be.repository.UserRepository;
 import com.bookcoach.book_coach_be.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +35,7 @@ public class AuthenticationService {
     @Autowired
     EmailService emailService;
 
-    public ResponseEntity<?> register(RegisterRequest request){
+    public ResponseEntity<?> register(RegisterRequest request) {
         var user = User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
@@ -54,7 +49,7 @@ public class AuthenticationService {
                 .description("")
                 .imageUrl("")
                 .build();
-        if(UserRepository.findByEmail(user.getEmail()).isPresent()){
+        if (UserRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User Already Exists!");
         }
 
@@ -70,7 +65,7 @@ public class AuthenticationService {
         mailMessage.setTo(user.getEmail());
         mailMessage.setSubject("Complete Registration!");
         mailMessage.setText("To confirm your account, please click here : "
-                +"http://localhost:8080/api/v1/auth/confirm-account?token="+confirmationToken.getConfirmationToken());
+                + "http://localhost:8080/api/v1/auth/confirm-account?token=" + confirmationToken.getConfirmationToken());
         emailService.sendEmail(mailMessage);
 
         System.out.println("Confirmation Token: " + confirmationToken.getConfirmationToken());
@@ -81,8 +76,7 @@ public class AuthenticationService {
     public ResponseEntity<?> confirmEmail(String confirmationToken) {
         ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 
-        if(token != null)
-        {
+        if (token != null) {
             User user = UserRepository.findByEmailIgnoreCase(token.getUserEntity().getEmail());
             user.setVerified(true);
             UserRepository.save(user);
@@ -92,7 +86,7 @@ public class AuthenticationService {
     }
 
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request){
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -101,7 +95,7 @@ public class AuthenticationService {
         );
         var user = UserRepository.findByEmail(request.getEmail())
                 .orElseThrow();
-        if(!user.isVerified()){
+        if (!user.isVerified()) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Email not verified!");
         }
         var jwtToken = jwtService.generateToken(user);

@@ -1,8 +1,6 @@
 package com.bookcoach.book_coach_be.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
@@ -17,7 +15,7 @@ import java.time.LocalTime;
 @Data
 @SQLDelete(sql = "UPDATE book_coach.lessons SET deleted = true WHERE id=?")
 @Where(clause = "deleted=false")
-@Table(name="lessons")
+@Table(name = "lessons")
 public class Lesson implements Serializable {
 
     @Id

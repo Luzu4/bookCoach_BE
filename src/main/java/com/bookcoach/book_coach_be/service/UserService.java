@@ -31,9 +31,9 @@ public class UserService {
     private final UserDTOConverter userDTOConverter;
     private final LessonRepository lessonRepository;
 
-    public List<UserDTO> getUserByType(Role type){
+    public List<UserDTO> getUserByType(Role type) {
         List<UserDTO> userDTOList = new ArrayList<>();
-        userRepository.getUsersByRole(type).forEach(user->{
+        userRepository.getUsersByRole(type).forEach(user -> {
             UserDTO userDTO = new UserDTO();
             userDTO.setNickName(user.getNickName());
             userDTO.setRole(user.getRole());
@@ -44,7 +44,8 @@ public class UserService {
         });
         return userDTOList;
     }
-    public Optional<UserDTO> getUserByEmail(String userEmail){
+
+    public Optional<UserDTO> getUserByEmail(String userEmail) {
         Optional<User> optionalUser = userRepository.findByEmail(userEmail);
         return optionalUser.map(user -> {
             UserDTO userDTO = new UserDTO();
@@ -57,13 +58,13 @@ public class UserService {
         });
     }
 
-    public List<User> getAllCoachesByGame(long gameId){
+    public List<User> getAllCoachesByGame(long gameId) {
         return userRepository.getAllCoachesByGame(gameId);
     }
 
-    public List<UserDTO> getAllUsers(){
+    public List<UserDTO> getAllUsers() {
         List<UserDTO> userDTOList = new ArrayList<>();
-        userRepository.findAll().forEach(user->{
+        userRepository.findAll().forEach(user -> {
             UserDTO userDTO = new UserDTO();
             userDTO.setNickName(user.getNickName());
             userDTO.setRole(user.getRole());
@@ -74,34 +75,35 @@ public class UserService {
         });
         return userDTOList;
     }
-    @Transactional
-    public ResponseEntity<String> updateUserGamesAndRole(EditUserRoleGamesDTO editUserRoleGamesDTO){
 
-        userRepository.updateUserRole(editUserRoleGamesDTO.getRole(),editUserRoleGamesDTO.getUserId());
+    @Transactional
+    public ResponseEntity<String> updateUserGamesAndRole(EditUserRoleGamesDTO editUserRoleGamesDTO) {
+
+        userRepository.updateUserRole(editUserRoleGamesDTO.getRole(), editUserRoleGamesDTO.getUserId());
 
         long userDetailsId = userRepository.getById(editUserRoleGamesDTO.getUserId()).getUserDetails().getId();
 
         userRepository.removeAllUserGames(userDetailsId);
         for (Long gameId : editUserRoleGamesDTO.getGamesId()) {
-            userRepository.updateUserGames(gameId,userDetailsId);
+            userRepository.updateUserGames(gameId, userDetailsId);
         }
         return ResponseEntity.ok("Updated");
     }
 
 
     @Transactional
-    public ResponseEntity<?> updateUserData(EditUserDataDTO editUserDataDTO, User user){
+    public ResponseEntity<?> updateUserData(EditUserDataDTO editUserDataDTO, User user) {
         Long userId = Long.valueOf(user.getId());
-        if(!user.getEmail().equals(editUserDataDTO.getEmail()) && userRepository.findByEmail(editUserDataDTO.getEmail()).isPresent()){
+        if (!user.getEmail().equals(editUserDataDTO.getEmail()) && userRepository.findByEmail(editUserDataDTO.getEmail()).isPresent()) {
             System.out.println(editUserDataDTO.getEmail());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This Email is Already in use");
         }
-        if(!editUserDataDTO.getPassword().isEmpty()){
-            userRepository.updateUserPassword(passwordEncoder.encode(editUserDataDTO.getPassword()),userId);
+        if (!editUserDataDTO.getPassword().isEmpty()) {
+            userRepository.updateUserPassword(passwordEncoder.encode(editUserDataDTO.getPassword()), userId);
         }
-        userRepository.updateUserEmail(editUserDataDTO.getEmail(),userId);
+        userRepository.updateUserEmail(editUserDataDTO.getEmail(), userId);
         lessonRepository.editPlayerEmail(editUserDataDTO.getEmail(), user.getEmail());
-        userRepository.updateUserNickName(editUserDataDTO.getNickName(),userId);
+        userRepository.updateUserNickName(editUserDataDTO.getNickName(), userId);
         userDetailsAllRepository.updateUserDetailsAllData(
                 editUserDataDTO.getCity(),
                 editUserDataDTO.getCountry(),

@@ -23,7 +23,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 
     @Modifying
     @Query("UPDATE Game g set g.imageUrl=:imageUrl,g.description=:description, g.name=:name, g.shortGameName=:shortGameName where g.id=:gameId")
-    void editGameById(@Param("imageUrl") String imageUrl, @Param("description")String description, @Param("name")String name, @Param("shortGameName") String shortGameName, @Param("gameId") Long gameId);
+    void editGameById(@Param("imageUrl") String imageUrl, @Param("description") String description, @Param("name") String name, @Param("shortGameName") String shortGameName, @Param("gameId") Long gameId);
 
     Optional<Game> findGameByName(String name);
 }

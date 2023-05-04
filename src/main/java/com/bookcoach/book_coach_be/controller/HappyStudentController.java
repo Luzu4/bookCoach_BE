@@ -17,7 +17,7 @@ public class HappyStudentController {
     private final HappyStudentService happyStudentService;
 
     @GetMapping
-    List<HappyStudent> all(){
+    List<HappyStudent> all() {
         return happyStudentService.getAllHappyStudents();
     }
 }
