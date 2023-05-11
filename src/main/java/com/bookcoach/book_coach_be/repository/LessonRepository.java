@@ -15,11 +15,8 @@ public interface LessonRepository extends JpaRepository<Lesson, Long> {
     List<Lesson> findAll();
 
     List<Lesson> getLessonsByGameIdAndUserId(@Param("id") long id, @Param("userId") long userId);
-    @Query(nativeQuery = true, value ="select l.* from lessons l\n" +
-            "inner join _user u on l.user_id= u.id\n" +
-            "inner join games g on l.game_id = g.id\n" +
-            "where (u.id=:userId and g.id=:gameId and l.player_email is null );")
-    List<Lesson> findLessonsByGameIdAndUserIdWhereEmailIsNull( @Param("gameId") long gameId, @Param("userId") long userId);
+
+    List<Lesson> findLessonsByGameIdAndUserIdAndAndPlayerEmailIsNull(Long gameId, Long userId);
 
     @Modifying
     @Query("update Lesson l set l.playerEmail=:playerEmail where l.id=:lessonId")
@@ -27,7 +24,7 @@ public interface LessonRepository extends JpaRepository<Lesson, Long> {
 
     @Modifying
     @Query("update Lesson l set l.playerEmail=:playerEmail, l.playerId=:playerId where l.id=:lessonId")
-    void addPlayerToLessonEmailAndId(@Param("playerEmail") String playerEmail,@Param("playerId") long playerId , @Param("lessonId") long lessonId);
+    void addPlayerToLessonEmailAndId(@Param("playerEmail") String playerEmail, @Param("playerId") long playerId, @Param("lessonId") long lessonId);
 
     List<Lesson> getLessonsByPlayerEmail(@Param("playerEmail") String playerEmail);
 
@@ -45,8 +42,8 @@ public interface LessonRepository extends JpaRepository<Lesson, Long> {
 
 
     @Modifying
-    @Query( nativeQuery = true, value = "insert into lessons (date,user_id,game_id,time, deleted) values (:date, :userId,:gameId,:time, false)")
-    void addNewLesson(@Param("date") LocalDate date, @Param("userId") long userId, @Param("gameId") long gameId, @Param("time") LocalTime time );
+    @Query(nativeQuery = true, value = "insert into lessons (date,user_id,game_id,time, deleted) values (:date, :userId,:gameId,:time, false)")
+    void addNewLesson(@Param("date") LocalDate date, @Param("userId") long userId, @Param("gameId") long gameId, @Param("time") LocalTime time);
 
     @Modifying
     @Query("UPDATE Lesson l set l.playerEmail=:newPlayerEmail where l.playerEmail=:oldPlayerEmail")

@@ -1,6 +1,5 @@
 package com.bookcoach.book_coach_be.service;
 
-import com.bookcoach.book_coach_be.converter.UserDTOConverter;
 import com.bookcoach.book_coach_be.dto.UserDTO;
 import com.bookcoach.book_coach_be.dto.EditUserDataDTO;
 import com.bookcoach.book_coach_be.dto.EditUserRoleGamesDTO;
@@ -28,7 +27,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserDetailsAllRepository userDetailsAllRepository;
     private final PasswordEncoder passwordEncoder;
-    private final UserDTOConverter userDTOConverter;
     private final LessonRepository lessonRepository;
 
     public List<UserDTO> getUserByType(Role type) {

@@ -33,13 +33,12 @@ public class LessonService {
     }
 
     @Transactional
-    public ResponseEntity<?> addPlayerToLesson(String playerEmail, long lessonId) {
-        if (userRepository.findByEmail(playerEmail).isPresent()) {
-            User user = userRepository.findByEmail(playerEmail).get();
+    public ResponseEntity<String> addPlayerToLesson(String playerEmail, long lessonId) {
+        User user = userRepository.findByEmailIgnoreCase(playerEmail).orElse(null);
+        if (user!=null){
             lessonRepository.addPlayerToLessonEmailAndId(playerEmail, user.getId(), lessonId);
         } else {
             lessonRepository.addPlayerToLesson(playerEmail, lessonId);
-
         }
         return ResponseEntity.status(HttpStatus.OK).body("Success");
 
@@ -50,7 +49,7 @@ public class LessonService {
     }
 
     public List<Lesson> getLessonsByGameIdAndUserIdWhereEmailIsNull(long gameId, long userId) {
-        return lessonRepository.findLessonsByGameIdAndUserIdWhereEmailIsNull(gameId, userId);
+        return lessonRepository.findLessonsByGameIdAndUserIdAndAndPlayerEmailIsNull(gameId, userId);
     }
 
     public List<Lesson> getLessonsByPlayerId(long playerId) {
@@ -65,7 +64,6 @@ public class LessonService {
     public void removeLessonById(long lessonId, User user) {
         if (lessonRepository.getLessonById(lessonId).getUser().getId().equals(user.getId()) || user.getRole().equals(Role.ADMIN)) {
             lessonRepository.deleteById(lessonId);
-
         }
     }
 
@@ -81,7 +79,6 @@ public class LessonService {
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no student assigned to this lesson");
         }
-
     }
 
     public List<Lesson> getLessonsByUserIdAndDate(long userId, LocalDate date) {

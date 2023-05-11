@@ -77,7 +77,7 @@ public class AuthenticationService {
         ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 
         if (token != null) {
-            User user = UserRepository.findByEmailIgnoreCase(token.getUserEntity().getEmail());
+            User user = UserRepository.findByEmailIgnoreCase(token.getUserEntity().getEmail()).get();
             user.setVerified(true);
             UserRepository.save(user);
             return ResponseEntity.ok("Email verified successfully!");
