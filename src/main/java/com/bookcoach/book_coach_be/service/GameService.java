@@ -3,12 +3,14 @@ package com.bookcoach.book_coach_be.service;
 import com.bookcoach.book_coach_be.model.Game;
 import com.bookcoach.book_coach_be.repository.GameRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +26,7 @@ public class GameService {
 
 
     public Game getById(long id) {
-        return gameRepository.getGameById(id);
+        return gameRepository.findById(id).orElse(null);
     }
 
     public List<Game> getGamesByUserId(long id) {
@@ -40,7 +42,7 @@ public class GameService {
 
     @Transactional
     public ResponseEntity<?> editGameById(Game game) {
-        gameRepository.editGameById(game.getImageUrl(), game.getDescription(), game.getName(), game.getShortGameName(), game.getId());
+        gameRepository.save(game);
         return ResponseEntity.ok("DONE");
     }
 
@@ -49,19 +51,12 @@ public class GameService {
     }
 
     public Game addNewGame(Game game) {
-        if (game.getName() != null) {
-            if (game.getName().length() > 1) {
-                if (getGameByName(game.getName()).isEmpty()) {
-                    try {
-                        return gameRepository.save(game);
-                    } catch (Exception e) {
-                        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Smth went wrong");
-                    }
-                } else {
-                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Game already exists!");
-                }
-            }
+        try {
+            return gameRepository.save(game);
+        } catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Game already exists!");
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Smth went wrong");
         }
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Game need to have name");
     }
 }

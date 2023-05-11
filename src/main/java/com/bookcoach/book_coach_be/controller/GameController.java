@@ -3,6 +3,7 @@ package com.bookcoach.book_coach_be.controller;
 import com.bookcoach.book_coach_be.model.Game;
 import com.bookcoach.book_coach_be.model.User;
 import com.bookcoach.book_coach_be.service.GameService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -43,12 +44,12 @@ public class GameController {
     }
 
     @PatchMapping("/edit")
-    ResponseEntity<?> editGameById(@RequestBody Game game) {
+    ResponseEntity<?> editGameById(@Valid @RequestBody Game game) {
         return gameService.editGameById(game);
     }
 
     @PutMapping("/add")
-    Game addNewGame(@RequestBody Game game) {
+    Game addNewGame(@Valid @RequestBody Game game) {
         return gameService.addNewGame(game);
     }
 

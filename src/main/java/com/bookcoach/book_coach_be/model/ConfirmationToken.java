@@ -40,7 +40,4 @@ public class ConfirmationToken {
         return user;
     }
 
-    public void setUserEntity(User user) {
-        this.user = user;
-    }
 }

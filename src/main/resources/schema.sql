@@ -21,7 +21,7 @@ values
 
 insert into book_coach._user (email, is_verified, nick_name, password, role, user_details_all_id)
 VALUES
-    ('admin@gmail.com',false,'Admin','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','ADMIN',1),
+    ('admin@gmail.com',true,'Admin','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','ADMIN',1),
     ('coach@gmail.com',false,'Coach','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','COACH',2),
     ('player@gmail.com',false,'Player','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','PLAYER',3),
     ('adam@gmail.com',false,'AdamCoach','$2a$10$6bPYChA7nS9KUMdCgCAOSOpDP/5O1c7DvLTyVlYgcgNKgsEzLkCCO','COACH',4),
