@@ -97,12 +97,12 @@ class LessonServiceTest {
         lesson.setPlayerEmail(null);
 
         //When
-        when(lessonRepository.findLessonsByGameIdAndUserIdWhereEmailIsNull(1L,1L)).thenReturn(List.of(lesson));
+        when(lessonRepository.findLessonsByGameIdAndUserIdAndAndPlayerEmailIsNull(1L,1L)).thenReturn(List.of(lesson));
         List<Lesson> lessonList = lessonService.getLessonsByGameIdAndUserIdWhereEmailIsNull(1L,1L);
 
         //Then
         assertEquals(1, lessonList.size());
-        verify(lessonRepository).findLessonsByGameIdAndUserIdWhereEmailIsNull(1L,1L);
+        verify(lessonRepository).findLessonsByGameIdAndUserIdAndAndPlayerEmailIsNull(1L,1L);
     }
 
     @Test

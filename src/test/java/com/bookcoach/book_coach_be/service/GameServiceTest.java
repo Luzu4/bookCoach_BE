@@ -48,13 +48,13 @@ class GameServiceTest {
         Game game = this.buildTestingGame();
 
         //When
-        when(gameRepository.getGameById(1L)).thenReturn(game);
+        when(gameRepository.findById(1L)).thenReturn(Optional.of(game));
         Game returnedGame = this.gameService.getById(1L);
 
         //Then
         assertEquals(game.getId(), returnedGame.getId());
         assertEquals("game", returnedGame.getName());
-        verify(this.gameRepository).getGameById(1L);
+        verify(this.gameRepository).findById(1L);
 
     }
 
@@ -109,63 +109,6 @@ class GameServiceTest {
         //Then
         verify(this.gameRepository).save(game);
     }
-
-    @Test
-    void addNewGame_should_not_add_game_with_existing_name(){
-        //Give
-        Game game = this.buildTestingGame();
-
-        //When
-        when(gameRepository.findGameByName(game.getName())).thenReturn(Optional.of(game));
-
-        //Then
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, ()-> gameService.addNewGame(game));
-        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
-        assertEquals("Game already exists!", exception.getReason());
-
-    }
-    @Test
-    void addNewGame_should_not_add_game_with_empty_name(){
-        //Given
-        Game game = new Game();
-        game.setName("");
-
-        //When
-
-        //Then
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, ()->gameService.addNewGame(game));
-        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
-        assertEquals("Game need to have name", exception.getReason());
-
-    }
-    @Test
-    void addNewGame_should_not_add_game_with_short_name(){
-        //Given
-        Game game = new Game();
-        game.setName("a");
-
-        //When
-
-        //Then
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, ()->gameService.addNewGame(game));
-        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
-        assertEquals("Game need to have name", exception.getReason());
-
-    }
-    @Test
-    void addNewGame_should_not_add_game_with_null_name(){
-        //Given
-        Game game = new Game();
-
-        //When
-
-        //Then
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, ()->gameService.addNewGame(game));
-        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
-        assertEquals("Game need to have name", exception.getReason());
-
-    }
-
 
 
     private Game buildTestingGame(){

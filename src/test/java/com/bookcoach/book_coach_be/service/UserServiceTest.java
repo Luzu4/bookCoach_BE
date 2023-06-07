@@ -7,6 +7,7 @@ import com.bookcoach.book_coach_be.model.Game;
 import com.bookcoach.book_coach_be.model.Role;
 import com.bookcoach.book_coach_be.model.User;
 import com.bookcoach.book_coach_be.model.UserDetailsAll;
+import com.bookcoach.book_coach_be.repository.LessonRepository;
 import com.bookcoach.book_coach_be.repository.UserDetailsAllRepository;
 import com.bookcoach.book_coach_be.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,8 @@ class UserServiceTest {
     private UserRepository userRepository;
     @Mock
     private UserDetailsAllRepository userDetailsAllRepository;
+    @Mock
+    private LessonRepository lessonRepository;
 
     @InjectMocks
     private UserService userService;
